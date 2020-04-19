@@ -1,36 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "../src/hooks/useForm";
 import "./App.css";
+import { Hello } from "./Hello";
 
 const App = () => {
-  // const [email, setEmail] = useState();
-  // const [password, setPassword] = useState();
   const [values, handleChange] = useForm({ email: "", password: "" });
+  const [showHello, setShowHello] = useState(false);
+  useEffect(() => {
+    console.log("hi");
+    // clean up
+    return () => {
+      console.log("unmount");
+    };
+  }, [values.email]);
   return (
     <div>
-      {/* <input
-        name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        name="password"
-        type="password"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      /> */}
-      <input
-        name="email"
-        type="text"
-        value={values.email}
-        onChange={handleChange}
-      />
-      <input
-        name="password"
-        type="password"
-        value={values.password}
-        onChange={handleChange}
-      />
+      <>
+        {/* <button onClick={() => setShowHello(!showHello)}>show hello</button> */}
+        {/* {showHello && <Hello />} */}
+
+        <input
+          name="email"
+          placeholder="email"
+          type="text"
+          value={values.email}
+          onChange={handleChange}
+        />
+        <input
+          name="password"
+          type="password"
+          value={values.password}
+          onChange={handleChange}
+        />
+      </>
     </div>
   );
 };
