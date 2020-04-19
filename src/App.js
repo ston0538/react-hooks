@@ -1,38 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "../src/hooks/useForm";
 import "./App.css";
-import { Hello } from "./Hello";
+import { useFetch } from "./useFetch";
 
 const App = () => {
-  const [values, handleChange] = useForm({ email: "", password: "" });
-  const [showHello, setShowHello] = useState(false);
+  const [count, setCount] = useState(() =>
+    JSON.parse(localStorage.getItem("count"))
+  );
+  // const { data, loading } = useFetch(`http://numbersapi.com/${count}/trivia`);
   useEffect(() => {
-    console.log("hi");
-    // clean up
-    return () => {
-      console.log("unmount");
-    };
-  }, [values.email]);
+    localStorage.setItem("count", JSON.stringify(count));
+  }, [count]);
   return (
     <div>
-      <>
-        {/* <button onClick={() => setShowHello(!showHello)}>show hello</button> */}
-        {/* {showHello && <Hello />} */}
-
-        <input
-          name="email"
-          placeholder="email"
-          type="text"
-          value={values.email}
-          onChange={handleChange}
-        />
-        <input
-          name="password"
-          type="password"
-          value={values.password}
-          onChange={handleChange}
-        />
-      </>
+      {/* <div>{!data ? "loading ..." : data}</div> */}
+      {/* <div>{loading ? "loading ..." : data}</div> */}
+      <div>count: {count}</div>
+      <button onClick={() => setCount((c) => c + 1)}>+</button>
+      <></>
     </div>
   );
 };
