@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
-import { useFetch } from "./useFetch";
 import Hello from "./Hello";
 import useForm from "./hooks/useForm";
 
@@ -10,21 +9,13 @@ const App = () => {
     password: "",
     firstName: "",
   });
-  const [count, setCount] = useState(() =>
-    JSON.parse(localStorage.getItem("count"))
-  );
-  const { data, loading } = useFetch(`http://numbersapi.com/${count}/trivia`);
+
   const inputRef = useRef();
+  const helloRef = useRef(() => console.log("helloRef"));
   const [showHello, setShowHello] = useState(true);
-  useEffect(() => {
-    localStorage.setItem("count", JSON.stringify(count));
-  }, [count]);
+
   return (
     <div>
-      <div>{!data ? "loading ..." : data}</div>
-      {/* <div>{loading ? "loading ..." : data}</div> */}
-      <div>count: {count}</div>
-      <button onClick={() => setCount((c) => c + 1)}>+</button>
       <div style={{ marginTop: 100 }}>
         <input
           ref={inputRef}
@@ -41,7 +32,14 @@ const App = () => {
           value={values.password}
           onChange={handleChange}
         />
-        <button onClick={() => inputRef.current.focus()}>클릭 focus</button>
+        <button
+          onClick={() => {
+            inputRef.current.focus();
+            helloRef.current();
+          }}
+        >
+          클릭 focus
+        </button>
       </div>
       <div style={{ marginTop: 100 }}>
         {showHello && <Hello />}
