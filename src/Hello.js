@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { useFetch } from "./useFetch";
+import { useMeasure } from "./hooks/useMeasure";
 
 export const Hello = () => {
   const renders = useRef(0);
   console.log("renders:", renders.current++);
+
   const [count, setCount] = useState(() =>
     JSON.parse(localStorage.getItem("count"))
   );
@@ -11,16 +13,22 @@ export const Hello = () => {
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(count));
   }, [count]);
-  useEffect(() => {
-    // console.log("hi");
-    // clean up
-    return () => {
-      console.log("hello unmount");
-    };
-  }, []);
+
+  // useEffect(() => {
+  //   // clean up
+  //   return () => {
+  //     console.log("hello unmount");
+  //   };
+  // }, []);
+
+  const [rect, divRef] = useMeasure([data]);
+
   return (
     <div>
-      <div>{!data ? "loading ..." : data}</div>
+      <div style={{ display: "flex" }}>
+        <div ref={divRef}>{!data ? "loading ..." : data}</div>
+      </div>
+      <pre>{JSON.stringify(rect, null, 2)}</pre>
       {/* <div>{loading ? "loading ..." : data}</div> */}
       <div>count: {count}</div>
       <button onClick={() => setCount((c) => c + 1)}>+</button>
