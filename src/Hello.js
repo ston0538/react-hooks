@@ -21,8 +21,7 @@ export const Hello = () => {
   //   };
   // }, []);
 
-  const divRef = useRef();
-  const rect = useMeasure(divRef, [data]);
+  const [rect, divRef] = useMeasure([data]);
 
   return (
     <div>

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import Hello from "./Hello";
 import useForm from "./hooks/useForm";
+import { useMeasure } from "./hooks/useMeasure";
 
 const App = () => {
   const [values, handleChange] = useForm({
@@ -14,9 +15,7 @@ const App = () => {
   const helloRef = useRef(() => console.log("helloRef"));
   const [showHello, setShowHello] = useState(true);
 
-  useEffect(() => {
-    console.log(inputRef.current.getBoundingClientRect());
-  }, []);
+  const [rect, inputRef2] = useMeasure([]);
 
   return (
     <div>
@@ -29,7 +28,9 @@ const App = () => {
           value={values.email}
           onChange={handleChange}
         />
+        <pre>{JSON.stringify(rect, null, 2)}</pre>
         <input
+          ref={inputRef2}
           type="text"
           placeholder="password"
           name="password"
