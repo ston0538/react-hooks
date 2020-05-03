@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import Hello from "./Hello";
 import useForm from "./hooks/useForm";
@@ -13,6 +13,10 @@ const App = () => {
   const inputRef = useRef();
   const helloRef = useRef(() => console.log("helloRef"));
   const [showHello, setShowHello] = useState(true);
+
+  useEffect(() => {
+    console.log(inputRef.current.getBoundingClientRect());
+  }, []);
 
   return (
     <div>
