@@ -1,57 +1,31 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./App.css";
-import Hello from "./Hello";
-import useForm from "./hooks/useForm";
-import { useMeasure } from "./hooks/useMeasure";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Index from "./pages/Index";
+import About from "./pages/About";
+import { UserContext } from "./UserContext";
 
-const App = () => {
-  const [values, handleChange] = useForm({
-    email: "",
-    password: "",
-    firstName: "",
-  });
-
-  const inputRef = useRef();
-  const helloRef = useRef(() => console.log("helloRef"));
-  const [showHello, setShowHello] = useState(true);
-
-  const [rect, inputRef2] = useMeasure([]);
-
+function AppRouter() {
+  const [value, setValue] = useState("Hello from Context");
   return (
-    <div>
-      <div style={{ marginTop: 100 }}>
-        <input
-          ref={inputRef}
-          type="text"
-          placeholder="email"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-        />
-        <pre>{JSON.stringify(rect, null, 2)}</pre>
-        <input
-          ref={inputRef2}
-          type="text"
-          placeholder="password"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-        />
-        <button
-          onClick={() => {
-            inputRef.current.focus();
-            helloRef.current();
-          }}
-        >
-          클릭 focus
-        </button>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about/">About</Link>
+            </li>
+          </ul>
+        </nav>
+        <UserContext.Provider value={{ value, setValue }}>
+          <Route path="/" exact component={Index} />
+          <Route path="/about/" exact component={About} />
+        </UserContext.Provider>
       </div>
-      <div style={{ marginTop: 100 }}>
-        {showHello && <Hello />}
-        <button onClick={() => setShowHello(!showHello)}>show hello</button>
-      </div>
-    </div>
+    </Router>
   );
-};
+}
 
-export default App;
+export default AppRouter;
