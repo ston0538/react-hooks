@@ -9,7 +9,7 @@ export const LikesAndComments = () => {
   const countStore = useContext(CounterStoreContext);
   return useObserver(() => (
     <div>
-      <button onClick={() => countStore.count++}>++</button>
+      <button onClick={() => countStore.addCount()}>++</button>
       {countStore.count}
       <div>
         number of likes and comments: {store.data.like + store.data.comment}
