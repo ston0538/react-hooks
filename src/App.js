@@ -10,11 +10,15 @@ const StoreProvider = ({ children }) => {
     bugs: ["hk"],
     like: 0,
     comment: 0,
+    data: {
+      like: 0,
+      comment: 0,
+    },
     addLike: () => {
-      store.like++;
+      store.data.like++;
     },
     addComment: () => {
-      store.comment++;
+      store.data.comment++;
     },
     addBug: (bug) => {
       store.bugs.push(bug);

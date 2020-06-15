@@ -6,6 +6,8 @@ export const LikesAndComments = () => {
   const store = useContext(DataContext);
 
   return useObserver(() => (
-    <div>number of likes and comments: {store.like + store.comment}</div>
+    <div>
+      number of likes and comments: {store.data.like + store.data.comment}
+    </div>
   ));
 };
