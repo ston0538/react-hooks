@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useLocalStore, useObserver } from "mobx-react";
+import { useLocalStore, useObserver, observer } from "mobx-react";
 import { DataContext } from "./context/DataContext";
 import { LikesAndComments } from "./components/LikesAndComments";
 import { Likes } from "./components/Likes";
@@ -26,7 +26,7 @@ const StoreProvider = ({ children }) => {
   }));
   return <DataContext.Provider value={store}>{children}</DataContext.Provider>;
 };
-const App = () => {
+const App = observer(() => {
   return (
     <StoreProvider>
       <Form />
@@ -35,6 +35,6 @@ const App = () => {
       <Likes />
     </StoreProvider>
   );
-};
+});
 
 export default App;
