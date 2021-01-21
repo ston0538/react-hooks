@@ -17,7 +17,6 @@ pipeline {
     stage('Test') {
       steps {
         sh 'cd jenkins/scripts'
-        sh 'chmod 700 test.sh'
         sh 'ls -al'
       }
     }
