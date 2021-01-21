@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'ls'
+        sh 'ls -al'
       }
     }
   }
